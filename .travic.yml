@@ -1,0 +1,15 @@
+sudo: required
+service:
+  - docker
+before_install:
+  - docker build -t alirezazekvat/multi-docker -f ./client/Dockerfile.dev ./client
+
+
+script:
+  - docker run  alirezazekvat/multi-docker npm test -- --coverage
+
+after_success:
+  - docker build -t alirezazekvat/multi-client ./client
+  - docker build -t alirezazekvat/multi-nginx ./nginx
+  - docker build -t alirezazekvat/multi-server ./server
+  - docker build -t alirezazekvat/multi-worker ./worker

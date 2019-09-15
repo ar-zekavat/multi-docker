@@ -1,10 +1,9 @@
 sudo: required
+
 service:
   - docker
 before_install:
   - docker build -t alirezazekvat/multi-docker -f ./client/Dockerfile.dev ./client
-
-
 script:
   - docker run  alirezazekvat/multi-docker npm test -- --coverage
 
